@@ -1,7 +1,7 @@
 # game1
 
-- Running game with scrolling background
-- user input will be jump
-- user has to dodge obstacles using jump/spacebar
+- flying game with scrolling background
+- user input will be up and down
+- user has to dodge obstacles using up and down
 
 
