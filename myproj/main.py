@@ -7,7 +7,7 @@ FPS = 60
 # load window
 WIDTH, HEIGHT = 1024, 576
 WINDOW = pygame.display.set_mode((WIDTH, HEIGHT))
-pygame.display.set_caption("Running Game!")
+pygame.display.set_caption("Flying Plane")
 
 # load bacgkround image
 background = pygame.image.load("images/sky4.png")
