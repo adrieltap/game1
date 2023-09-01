@@ -24,7 +24,7 @@ VELOCITY = 3
 
 # load bullets
 myBullet = pygame.image.load("images/bullet.png")
-# myBullet - pygame.transform.scale(myBullet, (10, 5))
+myBullet = pygame.transform.scale(myBullet, (30, 10))
 BULLET_VEL = 7
 
 # This function scrolls the background from left to right until the game ends
@@ -65,6 +65,8 @@ def fireBullet():
     planeBullets.append(bullet)
     print(bullet)
     WINDOW.blit(myBullet, bullet)
+
+def manageBullets(planeBullets):
 
 
 
