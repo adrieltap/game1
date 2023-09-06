@@ -1,5 +1,6 @@
 import pygame
 import math
+import Plane
 
 clock = pygame.time.Clock()
 FPS = 60
@@ -9,22 +10,25 @@ WIDTH, HEIGHT = 1024, 576
 WINDOW = pygame.display.set_mode((WIDTH, HEIGHT))
 pygame.display.set_caption("Flying Plane!")
 
+# colors
+RED = (255, 0, 0)
+# default scaling for player1's plane
+PLANE_WIDTH, PLANE_HEIGHT = 90, 75
+
 # load bacgkround image
 background = pygame.image.load("images/sky4.png")
 background = pygame.transform.scale(background, (WIDTH , HEIGHT))
 SCROLL = 0
 TILES = 3
 
-# load airplane
-airplane = pygame.image.load("images/airplane.png")
-PLANE_WIDTH, PLANE_HEIGHT = 90, 75
-airplane = pygame.transform.scale(airplane, (90 , 75))
-PLANE = pygame.Rect(150, 238, 360, 300 ) #360,300 is the res of my airplane, change these to be variables and declare them above
-VELOCITY = 3
+player1plane = Plane("Adriel's Plane", "images/airplane.png", PLANE_WIDTH, PLANE_HEIGHT, 3, RED, 7)
 
-# load bullets
-myBullet = pygame.image.load("images/bullet.png")
-myBullet = pygame.transform.scale(myBullet, (30, 10))
+# load airplane
+airplane = pygame.image.load(player1plane.imageStr)
+airplane = pygame.transform.scale(airplane, (PLANE_WIDTH , PLANE_HEIGHT))
+PLANE = pygame.Rect(150, 238, PLANE_WIDTH, PLANE_HEIGHT ) #360,300 is the res of my airplane, change these to be variables and declare them above
+VELOCITY = 3
+# load velocity of bullet
 BULLET_VEL = 7
 
 # This function scrolls the background from left to right until the game ends
@@ -58,21 +62,20 @@ def playerMovement():
         PLANE.x += VELOCITY
 
 # This function deals with the bullets being fired from PLANE
-def fireBullet():
-    planeBullets = []
-    
-    bullet = pygame.Rect(PLANE.x + PLANE_WIDTH, PLANE.y + PLANE_HEIGHT // 2, 10, 5)
-    planeBullets.append(bullet)
-    print(bullet)
-    WINDOW.blit(myBullet, bullet)
-
-def manageBullets(planeBullets):
-
+# This moves bullets and collisions
+# TO DO: Have an enemy to shoot at
+def fireBullet(bullet, planeBullets):
+    for bullet in planeBullets:
+        bullet.x += BULLET_VEL
+        # if enemy.colliderect(bullet):
+        #  pygame in 90 minutes 1:05:05 for an example
 
 
 
 def main():
     run = True
+    planeBullets = []
+    bullet = pygame.Rect(PLANE.x + PLANE_WIDTH, PLANE.y + PLANE_HEIGHT // 2, 10, 5)
 
     while run:
 
@@ -85,13 +88,20 @@ def main():
                 run = False
             # key down commands
             if event.type == pygame.KEYDOWN:
+                # When user hits space bullet fire from the plane
                 if event.key == pygame.K_SPACE:
-                    fireBullet()
+                     bullet = pygame.Rect(PLANE.x + PLANE_WIDTH, PLANE.y + PLANE_HEIGHT // 2, 10, 5)
+                     planeBullets.append(bullet)
 
 
         playerMovement()
+        fireBullet(bullet, planeBullets)
+
+        for bullet in planeBullets:
+            pygame.draw.rect(WINDOW, (255, 0, 0), bullet)
 
         WINDOW.blit(airplane, PLANE)
+
         pygame.display.update()
     
     pygame.quit()

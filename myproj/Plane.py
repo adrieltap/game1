@@ -1,9 +1,19 @@
-# Abstracat class for olane in the game.
-# Vehicle should have velocity up, velocity down, left, right and other properties that all vehicles share
+
+
+
 
 class Plane():
     
-    def __init__(self, name):
+    def __init__(self, name, imageStr, width, height, velocity, bulletColor, bulletVelocity):
         self.name = name
+        self.imageStr = imageStr
+        self.width = width
+        self.height = height
+        self.velocity = velocity
+        self.bulletColor = bulletColor
+        self.bulletVelocity = velocity
+
+    
+        
       
 
