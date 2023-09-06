@@ -1,6 +1,6 @@
 import pygame
 import math
-import Plane
+from Plane import Plane
 
 clock = pygame.time.Clock()
 FPS = 60
@@ -21,15 +21,13 @@ background = pygame.transform.scale(background, (WIDTH , HEIGHT))
 SCROLL = 0
 TILES = 3
 
-player1plane = Plane("Adriel's Plane", "images/airplane.png", PLANE_WIDTH, PLANE_HEIGHT, 3, RED, 7)
+player1 = Plane("Adriel's Plane", "images/airplane.png", PLANE_WIDTH, PLANE_HEIGHT, 3, RED, 10)
 
 # load airplane
-airplane = pygame.image.load(player1plane.imageStr)
+airplane = pygame.image.load(player1.imageStr)
 airplane = pygame.transform.scale(airplane, (PLANE_WIDTH , PLANE_HEIGHT))
 PLANE = pygame.Rect(150, 238, PLANE_WIDTH, PLANE_HEIGHT ) #360,300 is the res of my airplane, change these to be variables and declare them above
-VELOCITY = 3
-# load velocity of bullet
-BULLET_VEL = 7
+
 
 # This function scrolls the background from left to right until the game ends
 def infScrollBack():
@@ -52,21 +50,21 @@ def infScrollBack():
 
 def playerMovement():
     keys_pressed = pygame.key.get_pressed()
-    if keys_pressed[pygame.K_UP] and PLANE.y - VELOCITY > 0: # If user hits up arrow
-        PLANE.y -= VELOCITY # change this for when we implement OOP
-    if keys_pressed[pygame.K_DOWN] and PLANE.y + VELOCITY < HEIGHT - PLANE_HEIGHT: # If user hits down arrow
-        PLANE.y += VELOCITY
-    if keys_pressed[pygame.K_LEFT] and PLANE.x - VELOCITY  > 0: # If user hits left arrow
-        PLANE.x -= VELOCITY
-    if keys_pressed[pygame.K_RIGHT] and PLANE.x + VELOCITY < WIDTH - PLANE_WIDTH : # If user hits right arrow
-        PLANE.x += VELOCITY
+    if keys_pressed[pygame.K_UP] and PLANE.y - player1.velocity > 0: # If user hits up arrow
+        PLANE.y -= player1.velocity # change this for when we implement OOP
+    if keys_pressed[pygame.K_DOWN] and PLANE.y + player1.velocity < HEIGHT - PLANE_HEIGHT: # If user hits down arrow
+        PLANE.y += player1.velocity
+    if keys_pressed[pygame.K_LEFT] and PLANE.x - player1.velocity  > 0: # If user hits left arrow
+        PLANE.x -= player1.velocity
+    if keys_pressed[pygame.K_RIGHT] and PLANE.x + player1.velocity < WIDTH - PLANE_WIDTH : # If user hits right arrow
+        PLANE.x += player1.velocity
 
 # This function deals with the bullets being fired from PLANE
 # This moves bullets and collisions
 # TO DO: Have an enemy to shoot at
 def fireBullet(bullet, planeBullets):
     for bullet in planeBullets:
-        bullet.x += BULLET_VEL
+        bullet.x += player1.bulletVelocity
         # if enemy.colliderect(bullet):
         #  pygame in 90 minutes 1:05:05 for an example
 
@@ -76,7 +74,7 @@ def main():
     run = True
     planeBullets = []
     bullet = pygame.Rect(PLANE.x + PLANE_WIDTH, PLANE.y + PLANE_HEIGHT // 2, 10, 5)
-
+    print(player1.bulletVelocity)
     while run:
 
         clock.tick(FPS)
@@ -98,7 +96,7 @@ def main():
         fireBullet(bullet, planeBullets)
 
         for bullet in planeBullets:
-            pygame.draw.rect(WINDOW, (255, 0, 0), bullet)
+            pygame.draw.rect(WINDOW, player1.bulletColor, bullet)
 
         WINDOW.blit(airplane, PLANE)
 
