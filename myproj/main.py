@@ -5,6 +5,9 @@ from Character import Character
 
 clock = pygame.time.Clock()
 FPS = 60
+# CREATE EVENTS FOR COLLISIONS
+PLAYER1_HITS = pygame.USEREVENT + 1
+ENEMY_HITS = pygame.USEREVENT + 2
 # colors
 COLORS = {
     "white": (255, 255, 255),
@@ -70,10 +73,14 @@ def infScrollBack(WINDOW):
 def fireBullet(bullet, planeBullets, player1):
     for bullet in planeBullets:
         bullet.x += player1.bulletVelocity
-        # if enemy.colliderect(bullet):
-        #  pygame in 90 minutes 1:05:05 for an example
         if bullet.x + player1.bulletVelocity > player1.screenWIDTH + 15:
             planeBullets.remove(bullet)
+        # if enemy.colliderect(bullet):
+        #  pygame in 90 minutes 1:05:05 for an example
+        # if enemy1.charRect.colliderect(bullet):
+        #     pygame.event.post(pygame.event.Event(ENEMY_HIT))
+        #     planeBullets.remove(bullet)
+
 
 
 
@@ -81,7 +88,8 @@ def main():
     
     run = True
     playWINDOW = loadWindow()
-    player1 = Plane("Player1", "images/airplane.png", 3, COLORS["red"], 10)
+    player1 = Plane("Player1", "images/enemy1.png", 3, COLORS["red"], 10)
+    
     planeBullets = []
     bullet = pygame.Rect(player1.charRect.x + player1.width, player1.charRect.y + player1.height // 2, 10, 5)
     
