@@ -13,11 +13,7 @@ class Character:
         self.screenHEIGHT = 576
         self.screenWIDTH = 1024
 
-    
-    # RETURNS LIST WIDTH AND HEIGHT OF ALL CHARACTERS
-    # def dimensions(self):
-    #     return [90,75] ## [WIDTH, HEIGHT]
-    
+
         
         
 
