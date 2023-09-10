@@ -43,9 +43,9 @@ class Plane(Character):
                     pygame.event.post(pygame.event.Event(ENEMY_HIT))
                     self.planeBullets.remove(bullet)
                     enemies.respawn()
-            if bullet in self.planeBullets: 
                 if bullet.x + self.bulletVelocity > self.screenWIDTH + 15:
-                    self.planeBullets.remove(bullet)
+                    if bullet in self.planeBullets:
+                        self.planeBullets.remove(bullet)
         for bullet in self.planeBullets:
             pygame.draw.rect(playWINDOW, self.bulletColor, bullet)
     

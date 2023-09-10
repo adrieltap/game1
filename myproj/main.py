@@ -103,7 +103,7 @@ def main():
             # key down commands 
             if event.type == pygame.KEYDOWN:
                 # When user hits space bullet fire from the plane
-                if event.key == pygame.K_SPACE:
+                if event.key == pygame.K_SPACE: 
                     player1.fireBullet()
             
             if event.type == PLAYER1_HIT: 
@@ -128,6 +128,7 @@ def main():
             enemies.fireBullet()
             enemies.drawBullet(playWINDOW, player1, PLAYER1_HIT)
             enemies.drawCharacter(playWINDOW)
+            enemies.collision(player1, PLAYER1_HIT)
 
         pygame.display.update()
     

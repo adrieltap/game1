@@ -9,8 +9,8 @@ class Enemy(Plane):
     instances = []
    
     def __init__(self, name, imagePath, bulletColor, bulletVelocity):
-        self.bulletVelocity = random.randint(4, 8)
-        self.velocity = random.randint(1, 3)
+        self.bulletVelocity = random.randint(8, 10)
+        self.velocity = random.randint(6, 10)
         initPosX = 1024
         initPosY = random.randint(0, 288)
         Enemy.instances.append(self)
@@ -54,7 +54,7 @@ class Enemy(Plane):
             pygame.draw.rect(playWINDOW, self.bulletColor, bullet)
     
     def collision(self, player1, PLAYER1_HIT):
-        if player1.charRect.colliderect(self):
+        if player1.charRect.colliderect(self.charRect):
             pygame.event.post(pygame.event.Event(PLAYER1_HIT))
             self.respawn()
 
