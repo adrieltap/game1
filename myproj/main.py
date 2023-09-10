@@ -69,10 +69,11 @@ def infScrollBack(WINDOW):
     if abs(SCROLL) >= WIDTH:
         SCROLL = 0
 def displayLose(playWINDOW, score):
-    lose_text = LOSE_FONT.render("YOU LOSE, SCORE:  " + str(score) + " HIGH SCORE: " + str(maxScore), 1, COLORS["black"])
+    lose_text = LOSE_FONT.render("YOU LOSE, SCORE:  " + str(score) + "  HIGH SCORE: " + str(maxScore), 1, COLORS["black"])
     playWINDOW.blit(lose_text, (WIDTH // 2 - lose_text.get_width() / 2, HEIGHT / 2 - lose_text.get_height() /2 ))
     pygame.display.update()
     pygame.time.delay(5000)
+    
 
 def displayHealth(playWINDOW, player1):
     health_text = HEALTH_FONT.render("Health: " + str(player1.health) + " Score: " + str(player1.score), 1, COLORS["black"])
@@ -87,6 +88,7 @@ def main():
     enemy2 = Enemy("Enemy2", "images/enemy2.png", COLORS[random.choice(list(COLORS.keys()))], 10)
     enemy3 = Enemy("Enemy3", "images/enemy3.png", COLORS[random.choice(list(COLORS.keys()))], 10)
     allEnemies = Enemy.instances
+
     global maxScore
     while run:
 
@@ -112,6 +114,7 @@ def main():
 
         if player1.health <= 0:
             displayLose(playWINDOW, player1.score)
+            allEnemies.clear()
             break
         
         displayHealth(playWINDOW, player1)

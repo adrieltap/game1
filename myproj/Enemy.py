@@ -22,6 +22,9 @@ class Enemy(Plane):
     def respawn(self):
         self.charRect.x = self.screenWIDTH + self.width
         self.charRect.y = random.randint(0, self.screenHEIGHT)
+        self.bulletVelocity = random.randint(4, 8)
+        self.velocity = random.randint(1, 10)
+
 
     def movement(self):
         # enemy plane will always move right to left, but we can randomize the vertical movement
@@ -49,6 +52,12 @@ class Enemy(Plane):
                 self.planeBullets.remove(bullet)
         for bullet in self.planeBullets:
             pygame.draw.rect(playWINDOW, self.bulletColor, bullet)
+    
+    def collision(self, player1, PLAYER1_HIT):
+        if player1.charRect.colliderect(self):
+            pygame.event.post(pygame.event.Event(PLAYER1_HIT))
+            self.respawn()
+
         
 
         
